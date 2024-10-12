@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SpongeBob Case Converter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #ffeb3b; /* Amarelo */
+        }
+        h1 {
+            background-color: #6f4c3e; /* Marrom */
+            color: white; /* Texto branco */
+            padding: 10px; /* Espaço interno */
+            border: 2px solid #6f4c3e; /* Bordas marrons */
+            border-radius: 5px; /* Bordas arredondadas */
+        }
+        .spongebob-image {
+            width: 150px; /* Tamanho das imagens */
+            margin: 10px; /* Margem entre as imagens */
+        }
+        .section {
+            display: none; /* Inicialmente oculto */
+        }
+        .active-section {
+            display: block; /* Mostra a seção ativa */
+        }
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .image-gallery img {
+            margin: 15px;
+            width: 200px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" onclick="showSection('homeSection')">Bob Esponja</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link active" href="#randomSpongeBob" onclick="showSection('randomSection')">SpongeBob Aleatório</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#originalSpongeBob" onclick="showSection('originalSection')">SpongeBob Original</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#apiSpongeBob" onclick="showSection('apiSection')">API SpongeBob</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#rSpongeBob" onclick="showSection('rSection')">SpongeBob R</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#logs" onclick="showSection('logsSection')">Ver Logs</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="mt-4">SpongeBob Case Converter</h1>
+
+        <!-- Página Principal com imagens do Bob Esponja -->
+        <div id="homeSection" class="section active-section">
+            <h2>Bem-vindo ao Mundo do Bob Esponja!</h2>
+            <p>Aqui estão algumas imagens divertidas do Bob Esponja para alegrar o seu dia!</p>
+            <div class="image-gallery">
+                <img src="bobesponja.jpeg" alt="Bob Esponja 1">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/33/Patrick_Star.svg/200px-Patrick_Star.svg.png" alt="Patrick Estrela">
+                <img src="bob2 (3).jpeg" alt="Bob Esponja">
+                <img src="bob2 (2).jpeg" alt="Bob Esponja">
+                <img src="bob2 (1).jpeg" alt="Bob Esponja">
+            </div>
+        </div>
+
+        <!-- Seção SpongeBob Aleatório -->
+        <div id="randomSection" class="section">
+            <h2>SpongeBob Aleatório</h2>
+            <div class="mb-3">
+                <label for="inputTextRandom" class="form-label">Digite o Texto:</label>
+                <input type="text" class="form-control" id="inputTextRandom" placeholder="Digite algo...">
+            </div>
+            <button class="btn btn-primary" onclick="convertText('random')">Converter para SpongeBob Aleatório</button>
+        </div>
+
+        <!-- Seção SpongeBob Original -->
+        <div id="originalSection" class="section">
+            <h2>SpongeBob Original</h2>
+            <div class="mb-3">
+                <label for="inputTextOriginal" class="form-label">Digite o Texto:</label>
+                <input type="text" class="form-control" id="inputTextOriginal" placeholder="Digite algo...">
+            </div>
+            <button class="btn btn-secondary" onclick="convertText('original')">Converter para SpongeBob Original</button>
+        </div>
+
+        <!-- Seção API SpongeBob -->
+        <div id="apiSection" class="section">
+            <h2>API SpongeBob</h2>
+            <div class="mb-3">
+                <label for="inputTextAPI" class="form-label">Digite o Texto:</label>
+                <input type="text" class="form-control" id="inputTextAPI" placeholder="Digite algo...">
+            </div>
+            <button class="btn btn-success" onclick="convertText('api')">Converter usando API SpongeBob</button>
+        </div>
+
+        <!-- Seção SpongeBob R -->
+        <div id="rSection" class="section">
+            <h2>SpongeBob R</h2>
+            <div class="mb-3">
+                <label for="inputTextR" class="form-label">Digite o Texto:</label>
+                <input type="text" class="form-control" id="inputTextR" placeholder="Digite algo...">
+            </div>
+            <button class="btn btn-info" onclick="convertText('r')">Converter usando função R</button>
+        </div>
+
+        <!-- Seção Logs -->
+        <div id="logsSection" class="section">
+            <h2>Logs</h2>
+            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#logsModal" onclick="fetchLogs()">Ver Logs</button>
+        </div>
+
+        <!-- Modal para exibir os logs -->
+        <div class="modal fade" id="logsModal" tabindex="-1" aria-labelledby="logsModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="logsModalLabel">Lista de Logs</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul id="logsList" class="list-group"></ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resultado -->
+        <h2 class="mt-3">Texto Convertido:</h2>
+        <p id="outputText" class="font-weight-bold"></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script>
+        // Função para mostrar a seção selecionada e esconder as outras
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active-section');
+            });
+            document.getElementById(sectionId).classList.add('active-section');
+        }
+
+        // Funções de conversão para diferentes tipos de SpongeBob case
+        function toRandomSpongeBobCase(text) {
+            return text.split('').map(char => Math.random() < 0.5 ? char.toLowerCase() : char.toUpperCase()).join('');
+        }
+
+        function toOriginalSpongeBobCase(text) {
+            return text.split('').map((char, index) => index % 2 === 0 ? char.toUpperCase() : char.toLowerCase()).join('');
+        }
+
+        function convertText(type) {
+            const inputText = document.querySelector(`#inputText${type.charAt(0).toUpperCase() + type.slice(1)}`).value;
+            let outputText = '';
+            if (type === 'random') {
+                outputText = toRandomSpongeBobCase(inputText);
+            } else if (type === 'original') {
+                outputText = toOriginalSpongeBobCase(inputText);
+            } else if (type === 'api') {
+                outputText = `API conversion not implemented yet: ${inputText}`;
+            } else if (type === 'r') {
+                outputText = `R conversion not implemented yet: ${inputText}`;
+            }
+            document.getElementById('outputText').innerText = outputText;
+        }
+
+        // Função para buscar e exibir os logs no modal
+        function fetchLogs() {
+            fetch('https://www.piway.com.br/unoesc/api/list-logs')
+            .then(response => response.json())
+            .then(data => {
+                const logsList = document.getElementById('logsList');
+                logsList.innerHTML = ''; // Limpa a lista de logs
+                data.logs.forEach(log => {
+                    const logItem = document.createElement('li');
+                    logItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                    logItem.innerHTML = `<span>${log.message} (Matrícula: ${log.matricula})</span>`;
+                    const deleteButton = document.createElement('button');
+                    deleteButton.className = 'btn btn-danger btn-sm';
+                    deleteButton.innerText = 'Excluir';
+                    deleteButton.onclick = () => deleteLog(log.id); // Chama a função para deletar o log
+                    logItem.appendChild(deleteButton);
+                    logsList.appendChild(logItem);
+                });
+            })
+            .catch(error => {
+                console.error("Erro ao buscar logs:", error);
+            });
+        }
+
+        // Função para excluir logs
+        function deleteLog(logId) {
+            fetch(`https://www.piway.com.br/unoesc/api/delete-log/${logId}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Erro ao excluir o log.");
+                }
+                fetchLogs(); // Atualiza a lista de logs após excluir
+            })
+            .catch(error => {
+                console.error("Erro ao excluir o log:", error);
+            });
+        }
+    </script>
+</body>
+</html>
